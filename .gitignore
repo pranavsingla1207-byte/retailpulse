@@ -6,6 +6,7 @@ data/processed/*
 
 # Jupyter auto-saves
 .ipynb_checkpoints/
+.virtual_documents/
 
 # Python cache
 __pycache__/
