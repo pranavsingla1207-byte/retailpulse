@@ -13,6 +13,7 @@ Usage:
 """
 
 import os
+import re
 import sys
 import getpass
 
@@ -21,14 +22,17 @@ from sqlalchemy import create_engine
 
 
 def statements_in(path):
-    """Split a .sql file into individual statements, skipping comment-only chunks."""
+    """Split a .sql file into individual statements.
+
+    Line comments are stripped first so that a semicolon inside a comment does
+    not get mistaken for a statement separator.
+    """
     text = open(path, encoding="utf-8").read()
-    for chunk in text.split(";"):
-        code_lines = [
-            line for line in chunk.splitlines()
-            if line.strip() and not line.strip().startswith("--")
-        ]
-        if code_lines:
+    without_comments = "\n".join(
+        re.sub(r"--.*$", "", line) for line in text.splitlines()
+    )
+    for chunk in without_comments.split(";"):
+        if chunk.strip():
             yield chunk.strip()
 
 
