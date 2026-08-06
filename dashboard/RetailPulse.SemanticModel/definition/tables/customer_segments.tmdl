@@ -1,0 +1,121 @@
+table customer_segments
+	lineageTag: 41c36c2c-86e5-4e8b-9ea7-2f0015668e45
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 7561ece7-2912-4b2b-a977-5aec9b8fb792
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column recency
+		dataType: int64
+		formatString: 0
+		lineageTag: 551a34ef-4ba3-4a59-b00c-0eba8beeb364
+		summarizeBy: none
+		sourceColumn: recency
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column frequency
+		dataType: int64
+		formatString: 0
+		lineageTag: d3bdf989-289f-44ba-b152-c2682b1b7300
+		summarizeBy: none
+		sourceColumn: frequency
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column monetary
+		dataType: double
+		lineageTag: 7318c528-27a0-44d5-95f0-753bab205633
+		summarizeBy: none
+		sourceColumn: monetary
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column r
+		dataType: int64
+		formatString: 0
+		lineageTag: c7db7040-18c9-49a8-a231-bfb47389e7c8
+		summarizeBy: none
+		sourceColumn: r
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column f
+		dataType: int64
+		formatString: 0
+		lineageTag: e0cb571b-1544-483c-b6a8-604f0860b067
+		summarizeBy: none
+		sourceColumn: f
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column m
+		dataType: int64
+		formatString: 0
+		lineageTag: 1eacf5b2-a7b0-4a31-a772-87e066dd2c67
+		summarizeBy: none
+		sourceColumn: m
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column segment
+		dataType: string
+		lineageTag: 5d7076fe-a277-4539-929f-8370208fe1fd
+		summarizeBy: none
+		sourceColumn: segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column cluster
+		dataType: int64
+		formatString: 0
+		lineageTag: c1abfd43-69e2-4dbf-9655-69397efc11bd
+		summarizeBy: none
+		sourceColumn: cluster
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column cluster_name
+		dataType: string
+		lineageTag: e2fe6320-3449-4aec-af7a-0dcfe319c155
+		summarizeBy: none
+		sourceColumn: cluster_name
+
+		annotation SummarizationSetBy = Automatic
+
+	partition customer_segments = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Bada 2\retailpulse\data\processed\powerbi\customer_segments.csv"),[Delimiter=",", Columns=10, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+				in
+				    #"Promoted Headers"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

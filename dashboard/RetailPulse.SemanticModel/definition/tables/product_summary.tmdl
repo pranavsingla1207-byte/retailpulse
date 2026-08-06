@@ -1,0 +1,55 @@
+table product_summary
+	lineageTag: d34362c3-f15c-4406-be55-3ad332389b82
+
+	column stockcode
+		dataType: string
+		lineageTag: 25716c89-3ef3-436b-ace7-afa5dd373a60
+		summarizeBy: none
+		sourceColumn: stockcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: 3a5b1cd4-264a-4d5c-81ca-eba8a1ed9c58
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column revenue
+		dataType: double
+		lineageTag: e7dd80b4-9347-46be-8295-6609772eae06
+		summarizeBy: sum
+		sourceColumn: revenue
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column units
+		dataType: int64
+		formatString: 0
+		lineageTag: 6acd01d1-26c6-4f31-b4a9-de185b9915e3
+		summarizeBy: sum
+		sourceColumn: units
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	partition product_summary = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Bada 2\retailpulse\data\processed\powerbi\product_summary.csv"),[Delimiter=",", Columns=4, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+				in
+				    #"Promoted Headers"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

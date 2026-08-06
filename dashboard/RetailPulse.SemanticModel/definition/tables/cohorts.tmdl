@@ -1,0 +1,154 @@
+table cohorts
+	lineageTag: bdaee7de-43bd-4e29-9056-888f80787a40
+
+	measure 'Retention %' =
+			
+			VAR CohortSize = CALCULATE(DISTINCTCOUNT(cohorts[customer_id]), cohorts[cohort_index] = 0)
+			VAR ActiveCustomers = DISTINCTCOUNT(cohorts[customer_id])
+			RETURN
+			    DIVIDE(ActiveCustomers, CohortSize)
+		formatString: 0%;-0%;0%
+		lineageTag: 72bc8c83-fd31-4469-8928-e18849b7582e
+
+	column invoice
+		dataType: int64
+		formatString: 0
+		lineageTag: 649d5420-e77d-443f-bf62-606487c3c5ee
+		summarizeBy: sum
+		sourceColumn: invoice
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b4ebd5bc-5f72-4a66-9313-9669094a942e
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: 932bb58f-d73f-4c6e-a5cb-e9914b5c727f
+			defaultHierarchy: LocalDateTable_a825d2d9-2e4b-46c5-9949-c36da6450363.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 4a7adefa-9546-489b-8ec0-b444305b5942
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 4ba98d55-2b59-47fb-b28e-ade3eb2ba0f2
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_value
+		dataType: double
+		lineageTag: 24e3cad2-b760-426a-94a4-74a52b1d5059
+		summarizeBy: sum
+		sourceColumn: order_value
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column n_items
+		dataType: int64
+		formatString: 0
+		lineageTag: f0f2261d-0aac-4af5-9e77-6e5b7316d37d
+		summarizeBy: sum
+		sourceColumn: n_items
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_units
+		dataType: int64
+		formatString: 0
+		lineageTag: f6031906-359d-4845-8eb4-c1a9b4c9ada8
+		summarizeBy: sum
+		sourceColumn: n_units
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_purchase
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 298dd9f0-03f1-4c24-95f9-581306bb453e
+		summarizeBy: none
+		sourceColumn: first_purchase
+
+		variation Variation
+			isDefault
+			relationship: 059bbda9-8307-450d-9b4a-bb05959737b3
+			defaultHierarchy: LocalDateTable_616c4718-9459-414b-9b7b-abc5afadf4a0.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_month
+		dataType: string
+		lineageTag: 55ea63b5-9c99-446c-97aa-eb3e3b37a306
+		summarizeBy: none
+		sourceColumn: cohort_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_month
+		dataType: string
+		lineageTag: c108f9ee-40b8-4ce1-a1ba-55cee530c851
+		summarizeBy: none
+		sourceColumn: order_month
+
+		annotation SummarizationSetBy = Automatic
+
+	column cohort_index
+		dataType: int64
+		formatString: 0
+		lineageTag: 09ad932b-d21d-42d6-b40f-8481e32ea4e3
+		summarizeBy: sum
+		sourceColumn: cohort_index
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column customer_type = IF(cohorts[cohort_index] = 0, "New", "Returning")
+		lineageTag: b13c1771-8348-42de-8ab7-63bdc8e23782
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition cohorts = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Bada 2\retailpulse\data\processed\powerbi\cohorts.csv"),[Delimiter=",", Columns=11, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])
+				in
+				    #"Promoted Headers"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+

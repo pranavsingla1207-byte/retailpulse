@@ -1,0 +1,22 @@
+# RetailPulse — Python dependencies
+# Install with:  pip install -r requirements.txt
+
+# Data wrangling
+pandas==3.0.3
+numpy==2.4.6
+pyarrow==21.0.0          # Parquet read/write (preserves dtypes)
+
+# Visualisation
+matplotlib==3.10.0
+seaborn==0.13.2
+
+# Modelling (K-Means on RFM)
+scikit-learn==1.9.0
+
+# PostgreSQL loading + SQL
+SQLAlchemy==2.0.48
+psycopg2-binary==2.9.12
+
+# Notebooks
+jupyter==1.0.0
+notebook==7.2.2

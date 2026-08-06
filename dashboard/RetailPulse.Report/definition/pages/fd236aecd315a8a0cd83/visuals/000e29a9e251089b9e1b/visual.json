@@ -1,0 +1,94 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
+  "name": "000e29a9e251089b9e1b",
+  "position": {
+    "x": 10.099330750264178,
+    "y": 0,
+    "z": 0,
+    "height": 719.9380063402607,
+    "width": 630.486791123635,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_segments"
+                    }
+                  },
+                  "Property": "customer_id"
+                }
+              },
+              "queryRef": "customer_segments.customer_id",
+              "nativeQueryRef": "customer_id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_segments"
+                    }
+                  },
+                  "Property": "recency"
+                }
+              },
+              "queryRef": "customer_segments.recency",
+              "nativeQueryRef": "recency"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_segments"
+                    }
+                  },
+                  "Property": "frequency"
+                }
+              },
+              "queryRef": "customer_segments.frequency",
+              "nativeQueryRef": "frequency"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_segments"
+                    }
+                  },
+                  "Property": "monetary"
+                }
+              },
+              "queryRef": "customer_segments.monetary",
+              "nativeQueryRef": "monetary"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "customer_segments"
+                    }
+                  },
+                  "Property": "segment"
+                }
+              },
+              "queryRef": "customer_segments.segment",
+              "nativeQueryRef": "segment"
+            }
+          ]
+        }
+      }
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

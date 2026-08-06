@@ -1,0 +1,66 @@
+table Calendar
+	lineageTag: 3d0ae1f3-53eb-4a9a-bc53-f5910830cbcf
+	dataCategory: Time
+
+	column Date
+		isKey
+		formatString: Long Date
+		lineageTag: 5a384b8e-a824-47f9-b282-9bbc98d91e35
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Date]
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		formatString: 0
+		lineageTag: 9a69b060-e99c-403e-9998-28657ff5850f
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [Year]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthNo
+		formatString: 0
+		lineageTag: 0425fde2-88af-46fc-b6df-90b9fae2199b
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthNo]
+
+		annotation SummarizationSetBy = Automatic
+
+	column MonthName
+		lineageTag: c07c0181-a6c1-429a-a15c-ed82f95591ce
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [MonthName]
+		sortByColumn: MonthNo
+
+		annotation SummarizationSetBy = Automatic
+
+	column YearMonth
+		dataType: string
+		lineageTag: cfffa6ab-1db6-4831-878b-9e7ebec49188
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [YearMonth]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Calendar = calculated
+		mode: import
+		source =
+				
+				ADDCOLUMNS(
+				    CALENDAR(DATE(2009, 12, 1), DATE(2011, 12, 31)),
+				    "Year", YEAR([Date]),
+				    "MonthNo", MONTH([Date]),
+				    "MonthName", FORMAT([Date], "MMM"),
+				    "YearMonth", FORMAT([Date], "yyyy-MM")
+				)
+
+	annotation PBI_Id = 34bd91eaf9664fa0baf1c941ad4fb174
+

@@ -1,0 +1,27 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-IN
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["orders","product_summary","customer_segments","cohorts"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table orders
+ref table product_summary
+ref table customer_segments
+ref table cohorts
+ref table DateTableTemplate_89528550-056d-48b2-a877-6c3651b831ab
+ref table LocalDateTable_a825d2d9-2e4b-46c5-9949-c36da6450363
+ref table LocalDateTable_616c4718-9459-414b-9b7b-abc5afadf4a0
+ref table Calendar
+ref table LocalDateTable_c773ac14-f203-48d7-8975-6e708992759c
+
+ref cultureInfo en-US
+

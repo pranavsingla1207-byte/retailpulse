@@ -1,0 +1,23 @@
+relationship AutoDetected_b292c54a-03c9-4332-a1c8-345ea0d789ca
+	fromColumn: cohorts.customer_id
+	toColumn: customer_segments.customer_id
+
+relationship 932bb58f-d73f-4c6e-a5cb-e9914b5c727f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: cohorts.order_date
+	toColumn: LocalDateTable_a825d2d9-2e4b-46c5-9949-c36da6450363.Date
+
+relationship 059bbda9-8307-450d-9b4a-bb05959737b3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: cohorts.first_purchase
+	toColumn: LocalDateTable_616c4718-9459-414b-9b7b-abc5afadf4a0.Date
+
+relationship f4c76d6e-249d-4083-b004-c4386e7dc083
+	joinOnDateBehavior: datePartOnly
+	fromColumn: orders.order_date
+	toColumn: LocalDateTable_c773ac14-f203-48d7-8975-6e708992759c.Date
+
+relationship 291487ca-2e44-64de-1180-2060e5d7175f
+	fromColumn: orders.'Order Date'
+	toColumn: Calendar.Date
+

@@ -1,0 +1,87 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 0,
+            "y": 26
+          },
+          "nodeIndex": "orders",
+          "nodeLineageTag": "5a1b91f4-9d35-4abb-9536-4ac297ea8482",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 5
+        },
+        {
+          "location": {
+            "x": 284,
+            "y": 62
+          },
+          "nodeIndex": "product_summary",
+          "nodeLineageTag": "d34362c3-f15c-4406-be55-3ad332389b82",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 568,
+            "y": 0
+          },
+          "nodeIndex": "customer_segments",
+          "nodeLineageTag": "41c36c2c-86e5-4e8b-9ea7-2f0015668e45",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 2
+        },
+        {
+          "location": {
+            "x": 909,
+            "y": 113
+          },
+          "nodeIndex": "cohorts",
+          "nodeLineageTag": "bdaee7de-43bd-4e29-9056-888f80787a40",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 3
+        },
+        {
+          "location": {
+            "x": 267.59999704360962,
+            "y": 356
+          },
+          "nodeIndex": "Calendar",
+          "nodeLineageTag": "3d0ae1f3-53eb-4a9a-bc53-f5910830cbcf",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 4
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

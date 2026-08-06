@@ -1,0 +1,159 @@
+table orders
+	lineageTag: 5a1b91f4-9d35-4abb-9536-4ac297ea8482
+
+	measure 'Total Revenue' = SUM(orders[order_value])
+		formatString: "£"#,0;-"£"#,0;"£"#,0
+		lineageTag: 2dc2804f-9cb5-4ff1-9a5d-049563506372
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Total Orders' = DISTINCTCOUNT(orders[invoice])
+		formatString: 0
+		lineageTag: fa788779-98ac-4280-a8af-f988c31976dd
+
+	measure 'Average Order Value' = DIVIDE([Total Revenue], [Total Orders])
+		formatString: "£"#,0;-"£"#,0;"£"#,0
+		lineageTag: c9906d49-6199-4cc5-994d-5a7d3c6ce126
+
+		annotation PBI_FormatHint = {"currencyCulture":"en-GB"}
+
+	measure 'Repeat Rate' =
+			
+			DIVIDE(
+			    CALCULATE(DISTINCTCOUNT(customer_segments[customer_id]), customer_segments[frequency] >= 2),
+			    DISTINCTCOUNT(customer_segments[customer_id])
+			)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 5941ded3-ac22-4d4e-ab22-5e519d9f244d
+
+	measure 'MoM Growth %' =
+			
+			VAR PriorRevenue = CALCULATE([Total Revenue], DATEADD('Calendar'[Date], -1, MONTH))
+			RETURN
+			    DIVIDE([Total Revenue] - PriorRevenue, PriorRevenue)
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: ff1bb88a-a2bc-41e4-82c7-dfc18ac3e114
+
+	measure 'Revenue % of Total' = DIVIDE([Total Revenue], CALCULATE([Total Revenue], REMOVEFILTERS(orders)))
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: a58bd789-2ecc-48b2-b36b-2833b2738710
+
+	measure 'Min Date' =
+			
+			MIN(orders[order_date])
+		formatString: General Date
+		lineageTag: d29965a3-4af4-4f2e-8049-ebd64388a76c
+
+	measure 'Max Date' =
+			
+			MAX(orders[order_date])
+		formatString: General Date
+		lineageTag: 9275b26a-93cb-4240-ab52-effa632ebf6f
+
+	column invoice
+		dataType: int64
+		formatString: 0
+		lineageTag: d54ed8ce-f70b-441c-9553-85a635f14154
+		summarizeBy: sum
+		sourceColumn: invoice
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0588aafe-e6ae-4d94-b738-6f15bccde86a
+		summarizeBy: none
+		sourceColumn: order_date
+
+		variation Variation
+			isDefault
+			relationship: f4c76d6e-249d-4083-b004-c4386e7dc083
+			defaultHierarchy: LocalDateTable_c773ac14-f203-48d7-8975-6e708992759c.'Date Hierarchy'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column customer_id
+		dataType: string
+		lineageTag: 8067e91c-6775-4733-9f39-3a75d46c7560
+		summarizeBy: none
+		sourceColumn: customer_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: 8fcfa7fa-20a8-4532-a59b-46c947c5e087
+		dataCategory: Country
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column order_value
+		dataType: double
+		lineageTag: 9735a410-934a-4b21-bf60-db4d0e6d9bfb
+		summarizeBy: sum
+		sourceColumn: order_value
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column n_items
+		dataType: int64
+		formatString: 0
+		lineageTag: 21b38c1c-9b2a-46da-9fbc-161d1bda6f11
+		summarizeBy: sum
+		sourceColumn: n_items
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column n_units
+		dataType: int64
+		formatString: 0
+		lineageTag: 35937bcb-cb86-4e06-9bdf-e8d4366fd48e
+		summarizeBy: sum
+		sourceColumn: n_units
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Order Date' =
+			
+			DATE(
+			    YEAR(orders[order_date]),
+			    MONTH(orders[order_date]),
+			    DAY(orders[order_date])
+			)
+		formatString: General Date
+		lineageTag: e7534dab-9664-4e61-a5af-e148fb7479d3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition orders = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("D:\Bada 2\retailpulse\data\processed\powerbi\orders.csv"),[Delimiter=",", Columns=7, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"order_date", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
