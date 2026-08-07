@@ -78,12 +78,8 @@ retailpulse/
 │   └── 04_rfm_and_clustering.ipynb     # rule-based RFM + K-Means segmentation
 ├── sql/
 │   ├── 00_schema.sql                   # keys + indexes
-│   ├── 01_business_questions.sql       # combined reference
+│   ├── 01_business_questions.sql       # index of the six questions
 │   └── q1.sql … q6.sql                 # one runnable file per question
-├── scripts/
-│   ├── load_to_postgres.py             # load the 4 feature tables into PostgreSQL
-│   ├── run_sql.py                      # run a .sql file (psql-free)
-│   └── export_for_powerbi.py           # curated CSVs for the dashboard
 ├── dashboard/
 │   ├── RetailPulse.pbip                # the Power BI project (report + model)
 │   ├── RetailPulse-theme.json          # custom theme
@@ -113,17 +109,12 @@ pip install -r requirements.txt
 ```
 
 **3. Run the notebooks** in order (`01` → `04`). Notebook 02 writes the processed Parquet tables that
-the later notebooks and scripts consume.
+the later notebooks consume.
 
-**4. (Optional) SQL layer** - with PostgreSQL running:
+**4. (Optional) SQL layer** - load the cleaned tables into a PostgreSQL database, then run the files in
+`sql/`: `00_schema.sql` for keys and indexes, then `q1.sql` through `q6.sql` for the business questions.
 
-```bash
-python scripts/load_to_postgres.py     # loads the 4 tables (prompts for password)
-python scripts/run_sql.py sql/q1.sql    # run any business question
-```
-
-**5. Dashboard** - `python scripts/export_for_powerbi.py` writes the curated CSVs, then open
-`dashboard/RetailPulse.pbip` in Power BI Desktop.
+**5. Dashboard** - open `dashboard/RetailPulse.pbip` in Power BI Desktop.
 
 ---
 

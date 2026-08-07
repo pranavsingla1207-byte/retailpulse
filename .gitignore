@@ -12,5 +12,15 @@ data/processed/*
 __pycache__/
 *.pyc
 
-# Database password 
+# Database password
 .env
+
+# Internal working notes - keep off GitHub
+PROJECT.md
+
+# Helper scripts - kept locally, not published
+scripts/
+
+# Power BI local cache and backups (per-machine)
+dashboard/**/.pbi/
+dashboard/Archives/
