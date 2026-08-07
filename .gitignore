@@ -1,4 +1,4 @@
-# Data files - too large for GitHub. README explains how to download them.
+# Data files
 data/raw/*
 data/processed/*
 !data/raw/.gitkeep
@@ -12,13 +12,5 @@ data/processed/*
 __pycache__/
 *.pyc
 
-# Database password - must never be committed
+# Database password 
 .env
-
-# Internal working notes - not part of the deliverable
-PROJECT.md
-
-# Power BI Project (.pbip) - local cache and per-machine settings (regenerable)
-dashboard/**/.pbi/
-# Local backup of the pre-rebuild .pbix
-dashboard/Archives/
